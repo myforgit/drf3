@@ -4,19 +4,17 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from rest_framework.generics import RetrieveUpdateDestroyAPIView,CreateAPIView
 from app.Serializer import book
 from app.models import Book
 
-
+#增删改查的原代码
 class usernaes(APIView):
     def get(self, request, *args, **kwargs):
         book_id = kwargs.get("id")
         if book_id:
             book_ser = Book.objects.get(id=book_id, is_delete=False)
-            print(book_ser,type(book_ser))
             book_obj = book(book_ser).data
-            print(book_obj)
             return Response({
                 "status": status.HTTP_200_OK,
                 "mig": "查询单个用户成功！",
@@ -24,9 +22,7 @@ class usernaes(APIView):
             })
         else:
             book_ser = Book.objects.filter(is_delete=False)
-            print(book_ser,type(book_ser))
             book_obj = book(book_ser, many=True).data
-            print(book_obj)
             return Response({
                 "status": status.HTTP_200_OK,
                 "mig": "查询所有用户成功！",
@@ -88,3 +84,10 @@ class usernaes(APIView):
             "message": "更新成功",
             "results": book(book_obj).data
         })
+
+#对于增删改查的封装
+
+class naes(RetrieveUpdateDestroyAPIView,CreateAPIView):
+    queryset = Book.objects.filter(is_delete=False)
+    serializer_class = book
+    lookup_field = 'id'

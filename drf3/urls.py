@@ -24,6 +24,7 @@ from drf3 import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('drfe/',include("app.urls")),
+    path('drf4/',include("drf4.urls")),
     url(r"^media/(?P<path>.*)", serve, {"document_root": settings.MEDIA_ROOT}),
 ]
 
