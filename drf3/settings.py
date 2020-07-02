@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
-    "rest_framework"
+    "rest_framework",
+    "drf4"
 ]
 
 MIDDLEWARE = [
@@ -106,9 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -125,8 +126,14 @@ STATIC_URL = '/static/'
 REST_FRAMEWORK = {
     # 全局异常处理的方法
     'EXCEPTION_HANDLER': 'utils.exceptions.exception_handler',  # 使用自定的异常
+    'DEFAULT_THROTTLE_RATES': {
+        "user": "1/m",
+        'anon': None,
+    }
 }
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 MEDIA_URL = "/media/"
+
+AUTH_USER_MODEL = "drf4.User"
