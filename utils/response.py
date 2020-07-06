@@ -1,6 +1,6 @@
 from  rest_framework.response import Response
 
-class apiresponse(Response):
+class Apiresponse(Response):
 
     def __init__(self,status=200,massge=0,results=None,http_status=None, headers=None,
                  exception=False, **kwargs):
